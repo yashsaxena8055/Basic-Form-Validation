@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <title>Basic Form Validation</title>
+    <style>
+        footer {
+            background-color: #1b1b1b;
+            padding: 5px;
+            position: fixed;
+            left: 0px;
+            bottom: 0px;
+            z-index: 1;
+            width: 100%;
+        }
+             
+        footer p {
+            color: white;
+            padding-top: 5px;
+            text-align: center;
+        }
+
+        footer p a {
+            text-decoration: none;
+            color: blue;
+        }
+
+        #form {
+            font-size: 40px;
+            text-align: left;
+
+            border-radius: 5px;
+            border: 1px solid grey;
+            width: 600px;
+            margin: 20px auto;
+            padding: 30px;
+            height: 200px;
+        }
+
+        input {
+            height: 40px;
+            border-radius: 5px;
+            border: 1px solid black;
+            position: relative;
+            top: -10px;
+            width: 250px;
+            font-size: large;
+            float: right;
+
+        }
+
+        button {
+            height: 40px;
+            position: relative;
+            top: -10px;
+            border: 1px solid black;
+            border-radius: 5px;
+            width: 70px;
+            background-color: darkgreen;
+            color: white;
+            float: right;
+            margin: 10px;
+        }
+
+        label {}
+
+        #errorMsg {
+            color: red;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #success-msg {
+            color: green;
+            display: none;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="errorMsg"></div>
+    <div id="success-msg">Your Form is Submitted successfully!</div>
+    <div id="form">
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="example8055@gmail.com">
+        <br>
+        <label for="phone">Phone</label>
+
+        <input type="text" name="phone" id="phone" placeholder="eg.009290329">
+        <br>
+
+        <label for="password">Password</label>
+
+        <input type="password" name="password" id="password" placeholder="password">
+        <br>
+
+        <label for="confirm-pass">Confirm Password</label>
+
+        <input type="password" name="confirm-pass" id="confirm-pass" placeholder="confirm-password">
+        <br>
+        <button type="submit" id="sign-up" name="sign-up">Sign Up</button>
+    </div>
+    <footer>
+        <p> &copy; Design And Developed By <a href="https://www.linkedin.com/in/yash-saxena-1453931b4">Yash Saxena</a>
+        </p>
+    </footer>
+    <script>
+
+
+        function isEmail(email) {
+            var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return regex.test(email);
+            //test is a javascript function that gives true or false
+        }
+        $("#sign-up").click(function () {
+            var errorMsg = "";
+            var fieldMissing = "";
+            if ($("#email").val() == "") {
+                fieldMissing += "<p>Email is Missing!</p>";
+            }
+            if ($("#phone").val() == "") {
+                fieldMissing += "<p>Phone  Number is Missing!</p>";
+            }
+            if ($("#password").val() == "" || $("#confirm-pass").val() == "") {
+                fieldMissing += "<p>Password is Missing!</p>";
+            }
+            if (isEmail($("#email").val()) == false) {
+                errorMsg += "<p>Your Email Is Not Valid!</p>";
+            }
+            if ($.isNumeric($("#phone").val()) == false) {
+                errorMsg += "<p>Phone Number is not valid!</p>";
+            }
+            if ($("#password").val() == $("#confirm-pass").val() == false) {
+                errorMsg += "<p>password dont match!</p>"
+            }
+            if (errorMsg != "" || fieldMissing != "") {
+                $("#errorMsg").html(errorMsg + fieldMissing);
+
+            }
+            else {
+                $("#success-msg").show();
+            }
+
+        });
+
+    </script>
+</body>
+
+</html>
